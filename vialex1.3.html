@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vialex Travel – Tu Agencia de Viajes de Confianza</title>
+  <meta name="description" content="Vialex Travel – Agencia de viajes en México especializada en Disney, Universal, cruceros, playas del Caribe y destinos del mundo." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0B1F3A; --navy-mid: #142D52; --gold: #C9963A; --gold-light: #E8B84B;
+      --cream: #FAF8F3; --text: #1A1A2E; --text-mid: #4A4A6A; --text-light: #7A7A9A;
+      --white: #FFFFFF; --border: rgba(0,0,0,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); line-height: 1.65; overflow-x: hidden; }
+
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+    @keyframes floatA   { 0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-18px) rotate(3deg);} }
+    @keyframes floatB   { 0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-12px) rotate(-4deg);} }
+    @keyframes pulse-ring{ 0%{transform:scale(1);opacity:.6;}100%{transform:scale(1.6);opacity:0;} }
+    @keyframes starMove { 0%{transform:translateX(0) translateY(0);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateX(-200px) translateY(100px);opacity:0;} }
+    @keyframes cardReveal{ from{opacity:0;transform:translateY(24px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);} }
+    @keyframes gradientShift{ 0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;} }
+    @keyframes lineGrow { from{width:0;}to{width:60px;} }
+    @keyframes bounce-arrow{ 0%,100%{transform:translateY(0);}50%{transform:translateY(6px);} }
+    @keyframes glow-pulse{ 0%,100%{box-shadow:0 0 20px rgba(201,150,58,0.2);}50%{box-shadow:0 0 40px rgba(201,150,58,0.45);} }
+
+    /* NAV */
+    nav { position:fixed; top:0; width:100%; z-index:200; background:rgba(11,31,58,0.97); backdrop-filter:blur(12px); padding:0 5%; display:flex; align-items:center; justify-content:space-between; height:70px; border-bottom:1px solid rgba(201,150,58,0.2); transition:background .3s,box-shadow .3s; }
+    nav.scrolled { background:rgba(11,31,58,1); box-shadow:0 4px 30px rgba(0,0,0,0.3); }
+    .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .nav-logo-text { font-family:'Playfair Display',serif; font-size:22px; color:var(--white); font-weight:700; }
+    .nav-logo-text span { color:var(--gold-light); }
+    .nav-links { display:flex; gap:30px; list-style:none; align-items:center; }
+    .nav-links a { text-decoration:none; color:rgba(255,255,255,0.75); font-size:14px; font-weight:500; transition:color .2s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1.5px; background:var(--gold-light); transition:width .25s; }
+    .nav-links a:hover { color:var(--gold-light); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-cta { background:var(--gold)!important; color:var(--navy)!important; padding:9px 22px; border-radius:7px; font-weight:700!important; }
+    .nav-cta:hover { background:var(--gold-light)!important; transform:translateY(-1px)!important; }
+    .nav-cta::after { display:none!important; }
+
+    /* HERO */
+    .hero { min-height:100vh; background:linear-gradient(135deg,#060F1C 0%,#0B1F3A 35%,#112845 65%,#0D2035 100%); background-size:300% 300%; animation:gradientShift 12s ease infinite; display:flex; align-items:center; padding:0 5%; padding-top:70px; position:relative; overflow:hidden; }
+    .hero-particles { position:absolute; inset:0; pointer-events:none; }
+    .hero-particles span { position:absolute; width:2px; height:2px; border-radius:50%; background:rgba(255,255,255,0.6); animation:starMove linear infinite; }
+    .hero-particles span:nth-child(1){top:20%;left:80%;animation-duration:8s;}
+    .hero-particles span:nth-child(2){top:35%;left:60%;animation-duration:11s;animation-delay:2s;}
+    .hero-particles span:nth-child(3){top:55%;left:90%;animation-duration:7s;animation-delay:1s;}
+    .hero-particles span:nth-child(4){top:15%;left:40%;animation-duration:13s;animation-delay:3s;}
+    .hero-particles span:nth-child(5){top:70%;left:70%;animation-duration:9s;animation-delay:.5s;}
+    .hero-particles span:nth-child(6){top:10%;left:55%;animation-duration:15s;animation-delay:4s;}
+    .hero-glow-1 { position:absolute; top:-10%; right:-5%; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(201,150,58,0.08) 0%,transparent 65%); pointer-events:none; animation:floatA 8s ease-in-out infinite; }
+    .hero-glow-2 { position:absolute; bottom:-15%; left:-8%; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(26,63,112,0.4) 0%,transparent 65%); pointer-events:none; animation:floatB 10s ease-in-out infinite; }
+    .hero-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; z-index:2; width:100%; max-width:1280px; }
+    .hero-left { animation:fadeUp .8s ease both; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(201,150,58,0.12); border:1px solid rgba(201,150,58,0.3); border-radius:100px; padding:7px 16px; margin-bottom:28px; font-size:12px; font-weight:600; color:var(--gold-light); letter-spacing:.08em; text-transform:uppercase; }
+    .hero-badge-dot { width:6px; height:6px; border-radius:50%; background:var(--gold-light); position:relative; }
+    .hero-badge-dot::after { content:''; position:absolute; inset:-3px; border-radius:50%; border:1px solid var(--gold-light); animation:pulse-ring 1.5s ease-out infinite; }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(38px,5vw,68px); color:var(--white); line-height:1.05; margin-bottom:32px; }
+    .hero h1 .gold { color:var(--gold-light); }
+    .hero h1 .thin { font-weight:400; }
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px; }
+    .btn-primary { display:inline-flex; align-items:center; gap:9px; background:var(--gold); color:var(--navy); padding:15px 28px; border-radius:9px; font-weight:700; font-size:15px; text-decoration:none; transition:background .2s,transform .15s; animation:glow-pulse 3s ease infinite; }
+    .btn-primary:hover { background:var(--gold-light); transform:translateY(-2px); }
+    .btn-outline { display:inline-flex; align-items:center; gap:9px; border:1.5px solid rgba(255,255,255,0.28); color:var(--white); padding:14px 26px; border-radius:9px; font-weight:500; font-size:15px; text-decoration:none; transition:border-color .2s,background .2s; }
+    .btn-outline:hover { border-color:var(--gold-light); background:rgba(201,150,58,0.1); }
+    .hero-trust { display:flex; gap:24px; flex-wrap:wrap; }
+    .trust-item { display:flex; align-items:center; gap:8px; }
+    .trust-check { width:18px; height:18px; border-radius:50%; background:rgba(201,150,58,0.2); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--gold-light); flex-shrink:0; }
+    .trust-text { font-size:13px; color:rgba(255,255,255,0.5); }
+
+    /* HERO RIGHT — cards clickeables */
+    .hero-right { animation:fadeIn 1s ease .3s both; display:flex; flex-direction:column; gap:14px; }
+    .hero-card {
+      background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:18px 22px;
+      display:flex; align-items:center; gap:16px;
+      transition:background .25s, transform .25s, border-color .25s;
+      cursor:pointer; text-decoration:none;
+    }
+    .hero-card:hover { background:rgba(255,255,255,0.1); transform:translateX(6px); border-color:rgba(201,150,58,0.35); }
+    .hero-card-icon { width:48px; height:48px; border-radius:12px; background:rgba(201,150,58,0.15); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; transition:transform .25s; }
+    .hero-card:hover .hero-card-icon { transform:scale(1.12) rotate(-5deg); }
+    .hero-card-body { flex:1; }
+    .hero-card-label { font-size:10px; font-weight:700; color:var(--gold-light); letter-spacing:.08em; text-transform:uppercase; margin-bottom:3px; }
+    .hero-card-title { font-size:15px; color:var(--white); font-weight:600; }
+    .hero-card-sub { font-size:12px; color:rgba(255,255,255,0.42); margin-top:2px; }
+    .hero-card-arrow { font-size:16px; color:rgba(201,150,58,0.5); transition:color .2s, transform .2s; }
+    .hero-card:hover .hero-card-arrow { color:var(--gold-light); transform:translateX(3px); }
+    .hero-corp-link { display:flex; align-items:center; gap:14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:14px 20px; text-decoration:none; transition:background .2s; }
+    .hero-corp-link:hover { background:rgba(255,255,255,0.09); }
+    .hero-corp-label { font-size:10px; font-weight:700; color:var(--gold-light); letter-spacing:.08em; text-transform:uppercase; }
+    .hero-corp-title { font-size:13px; color:rgba(255,255,255,0.75); margin-top:2px; }
+    .scroll-hint { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); text-align:center; z-index:2; animation:fadeIn 1s ease 1.5s both; }
+    .scroll-hint span { font-size:11px; color:rgba(255,255,255,0.32); letter-spacing:.08em; text-transform:uppercase; display:block; margin-bottom:8px; }
+    .scroll-arrow { font-size:18px; color:rgba(255,255,255,0.32); animation:bounce-arrow 1.6s ease-in-out infinite; display:block; }
+
+    /* SECTIONS */
+    section { padding:90px 5%; }
+    .section-eyebrow { font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+    .section-title { font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,42px); color:var(--navy); line-height:1.2; margin-bottom:14px; }
+    .section-sub { font-size:17px; color:var(--text-mid); max-width:560px; line-height:1.7; }
+    .gold-divider { width:0; height:3px; background:var(--gold); border-radius:2px; margin:14px 0 0; }
+    .gold-divider.animate { animation:lineGrow .6s ease forwards; }
+    .section-header { margin-bottom:56px; }
+
+    /* SERVICIOS */
+    #servicios { background:var(--white); }
+    .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
+    .service-card { border:1px solid var(--border); border-radius:18px; padding:32px 28px; background:var(--cream); position:relative; overflow:hidden; transition:transform .25s,box-shadow .25s; opacity:0; animation:cardReveal .5s ease forwards; cursor:pointer; }
+    .service-card:nth-child(1){animation-delay:.05s;} .service-card:nth-child(2){animation-delay:.12s;} .service-card:nth-child(3){animation-delay:.19s;} .service-card:nth-child(4){animation-delay:.26s;} .service-card:nth-child(5){animation-delay:.33s;} .service-card:nth-child(6){animation-delay:.40s;}
+    .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--gold-light)); transform:scaleX(0); transform-origin:left; transition:transform .35s; }
+    .service-card:hover { transform:translateY(-5px); box-shadow:0 20px 48px rgba(0,0,0,0.1); }
+    .service-card:hover::before { transform:scaleX(1); }
+    .service-icon { width:52px; height:52px; border-radius:13px; background:rgba(201,150,58,0.12); display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:18px; transition:transform .25s; }
+    .service-card:hover .service-icon { transform:scale(1.1) rotate(-4deg); }
+    .service-title { font-family:'Playfair Display',serif; font-size:19px; color:var(--navy); margin-bottom:10px; }
+    .service-desc { font-size:14px; color:var(--text-mid); line-height:1.7; margin-bottom:18px; }
+    .service-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .tag { font-size:11px; font-weight:600; padding:4px 10px; border-radius:100px; background:rgba(11,31,58,0.07); color:var(--navy-mid); transition:background .2s; }
+    .service-card:hover .tag { background:rgba(201,150,58,0.15); }
+    .service-cta { margin-top:18px; font-size:13px; font-weight:600; color:var(--gold); display:flex; align-items:center; gap:5px; transition:gap .2s; }
+    .service-card:hover .service-cta { gap:10px; }
+
+    /* DESTINOS — nuevo diseño tipo card con imagen + flip overlay */
+    #destinos { background:var(--cream); }
+    .destinos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:26px; }
+
+    .d-card {
+      border-radius:20px; overflow:hidden; position:relative;
+      cursor:pointer; background:#111;
+      box-shadow:0 4px 20px rgba(0,0,0,0.12);
+      transition:transform .35s cubic-bezier(0.175,0.885,0,1), box-shadow .35s;
+      opacity:0; animation:cardReveal .55s ease forwards;
+      height:360px;
+    }
+    .d-card:nth-child(1) {animation-delay:.04s;} .d-card:nth-child(2) {animation-delay:.09s;} .d-card:nth-child(3) {animation-delay:.14s;} .d-card:nth-child(4) {animation-delay:.19s;} .d-card:nth-child(5) {animation-delay:.24s;} .d-card:nth-child(6) {animation-delay:.29s;} .d-card:nth-child(7) {animation-delay:.34s;} .d-card:nth-child(8) {animation-delay:.39s;} .d-card:nth-child(9) {animation-delay:.44s;} .d-card:nth-child(10){animation-delay:.49s;} .d-card:nth-child(11){animation-delay:.54s;} .d-card:nth-child(12){animation-delay:.59s;} .d-card:nth-child(13){animation-delay:.64s;} .d-card:nth-child(14){animation-delay:.69s;} .d-card:nth-child(15){animation-delay:.74s;}
+
+    .d-card:hover { transform:translateY(-6px) scale(1.02); box-shadow:0 24px 56px rgba(0,0,0,0.22); }
+
+    /* imagen de fondo */
+    .d-img {
+      position:absolute; inset:0;
+      background-size:cover; background-position:center;
+      transition:transform .55s ease, opacity .35s ease;
+    }
+    .d-card:hover .d-img { transform:scale(1.08); opacity:100; }
+
+    /* gradiente siempre visible abajo */
+    .d-gradient {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(5,15,30,0.88) 0%, rgba(5,15,30,0.35) 50%, transparent 100%);
+      transition:opacity .35s;
+    }
+    .d-card:hover .d-gradient { opacity:0; }
+
+    /* info principal — visible por defecto */
+    .d-front {
+      position:absolute; bottom:0; left:0; right:0;
+      padding:22px 22px 24px;
+      transition:opacity .25s, transform .3s;
+    }
+    .d-card:hover .d-front { opacity:0; transform:translateY(10px); pointer-events:none; }
+    .d-type { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-light); margin-bottom:6px; }
+    .d-name { font-family:'Playfair Display',serif; font-size:22px; color:var(--white); line-height:1.2; margin-bottom:6px; }
+    .d-hook { font-size:13px; color:rgba(255,255,255,0.7); font-style:italic; line-height:1.5; }
+
+    /* info hover — oculta por defecto */
+    .d-back {
+      position:absolute; inset:0;
+      background:rgba(8,20,40,0.87);
+      padding:26px 24px;
+      display:flex; flex-direction:column; justify-content:space-between;
+      opacity:0; transition:opacity .3s;
+    }
+    .d-card:hover .d-back { opacity:1; }
+    .d-back-title { font-family:'Playfair Display',serif; font-size:19px; color:var(--white); margin-bottom:10px; }
+    .d-back-info { font-size:13px; color:rgba(255,255,255,0.68); line-height:1.7; flex:1; overflow:hidden; }
+    .d-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+    .d-tag { font-size:11px; font-weight:600; padding:3px 10px; border-radius:100px; background:rgba(201,150,58,0.18); color:var(--gold-light); border:1px solid rgba(201,150,58,0.25); }
+    .d-cta { margin-top:14px; display:inline-flex; align-items:center; gap:7px; background:var(--gold); color:var(--navy); font-size:13px; font-weight:700; padding:10px 18px; border-radius:8px; transition:background .2s, gap .2s; }
+    .d-cta:hover { background:var(--gold-light); gap:12px; }
+
+    /* PROCESO */
+    #proceso { background:var(--white); }
+    .proceso-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0; position:relative; }
+    .proceso-steps::before { content:''; position:absolute; top:32px; left:10%; right:10%; height:2px; background:linear-gradient(90deg,var(--gold),var(--gold-light)); }
+    .step { text-align:center; padding:0 16px; }
+    .step-num { width:64px; height:64px; border-radius:50%; background:var(--navy); color:var(--gold-light); font-family:'Playfair Display',serif; font-size:22px; font-weight:700; display:flex; align-items:center; justify-content:center; margin:0 auto 22px; border:3px solid var(--gold); position:relative; z-index:1; transition:transform .25s,box-shadow .25s; }
+    .step:hover .step-num { transform:scale(1.12); box-shadow:0 0 0 6px rgba(201,150,58,0.15); }
+    .step-title { font-size:15px; font-weight:600; color:var(--navy); margin-bottom:8px; }
+    .step-text { font-size:13px; color:var(--text-mid); line-height:1.65; }
+
+    /* CONTACTO */
+    #contacto { background:var(--navy); }
+    #contacto .section-title { color:var(--white); }
+    #contacto .section-eyebrow { color:var(--gold-light); }
+    #contacto .section-sub { color:rgba(255,255,255,0.6); }
+    .contacto-layout { display:grid; grid-template-columns:1fr 1fr; gap:56px; margin-top:8px; }
+    .contacto-cards { display:flex; flex-direction:column; gap:14px; }
+    .contacto-card { display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:18px 22px; text-decoration:none; transition:background .2s,transform .2s; }
+    .contacto-card:hover { background:rgba(255,255,255,0.09); transform:translateX(4px); }
+    .contacto-card-icon { width:44px; height:44px; border-radius:10px; background:rgba(201,150,58,0.2); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+    .contacto-card-label { font-size:11px; font-weight:600; color:var(--gold-light); letter-spacing:.06em; text-transform:uppercase; margin-bottom:3px; }
+    .contacto-card-value { font-size:14px; color:var(--white); font-weight:500; }
+    .contacto-form-area { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:36px; }
+    .contacto-form-area h3 { font-family:'Playfair Display',serif; font-size:22px; color:var(--white); margin-bottom:24px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    .form-group { margin-bottom:14px; }
+    .form-group label { display:block; font-size:11px; font-weight:600; color:rgba(255,255,255,0.5); margin-bottom:6px; letter-spacing:.05em; text-transform:uppercase; }
+    .form-group input,.form-group select,.form-group textarea { width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); border-radius:9px; padding:12px 14px; color:var(--white); font-size:14px; font-family:'Inter',sans-serif; outline:none; transition:border-color .2s,background .2s; }
+    .form-group input::placeholder,.form-group textarea::placeholder { color:rgba(255,255,255,0.28); }
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--gold); background:rgba(255,255,255,0.1); }
+    .form-group select { appearance:none; cursor:pointer; }
+    .form-group select option { background:var(--navy); }
+    .form-group textarea { resize:vertical; min-height:100px; }
+    .form-submit { width:100%; background:var(--gold); color:var(--navy); border:none; border-radius:9px; padding:15px; font-size:15px; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; transition:background .2s,transform .15s; }
+    .form-submit:hover { background:var(--gold-light); transform:translateY(-1px); }
+    .field-error { font-size:12px; color:#E87070; margin-top:5px; display:none; }
+
+    /* FOOTER */
+    footer { background:#060F1C; padding:52px 5% 32px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+    .footer-brand p { font-size:14px; color:rgba(255,255,255,0.4); line-height:1.7; margin-top:12px; max-width:260px; }
+    .footer-col h4 { font-size:12px; font-weight:700; color:var(--gold-light); letter-spacing:.1em; text-transform:uppercase; margin-bottom:16px; }
+    .footer-col a { display:block; font-size:14px; color:rgba(255,255,255,0.45); text-decoration:none; margin-bottom:10px; transition:color .2s; }
+    .footer-col a:hover { color:var(--white); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,0.07); padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .footer-bottom p { font-size:13px; color:rgba(255,255,255,0.28); }
+    .footer-legal { display:flex; gap:20px; }
+    .footer-legal a { font-size:13px; color:rgba(255,255,255,0.28); text-decoration:none; transition:color .2s; }
+    .footer-legal a:hover { color:rgba(255,255,255,0.6); }
+
+    @media(max-width:900px){ .hero-layout{grid-template-columns:1fr;gap:48px;} .hero-right{display:none;} .nav-links{display:none;} .footer-grid{grid-template-columns:1fr 1fr;} .proceso-steps::before{display:none;} }
+    @media(max-width:600px){ .contacto-layout{grid-template-columns:1fr;} .form-row{grid-template-columns:1fr;} .footer-grid{grid-template-columns:1fr;} .hero-btns{flex-direction:column;} }
+  </style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a class="nav-logo" href="#inicio">
+    <span class="nav-logo-text">Vialex <span>Travel</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#destinos">Destinos</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="corporativo.html" target="_blank">Corporativo</a></li>
+    <li><a href="#contacto" class="nav-cta">Cotizar ahora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-particles"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-layout">
+
+    <div class="hero-left">
+      <div class="hero-badge"><span class="hero-badge-dot"></span>Vialex Travel · México</div>
+      <h1>El viaje que<br>siempre <span class="gold">soñaste</span><br><span class="thin">empieza aquí.</span></h1>
+      <div class="hero-btns">
+        <a href="#contacto" class="btn-primary">Cotiza tu viaje gratis →</a>
+        <a href="#destinos" class="btn-outline">Ver destinos</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-check">✓</span><span class="trust-text">Cotización en menos de 24 h</span></div>
+        <div class="trust-item"><span class="trust-check">✓</span><span class="trust-text">Atención personalizada</span></div>
+        <div class="trust-item"><span class="trust-check">✓</span><span class="trust-text">Depósitos seguros</span></div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-card" onclick="cotizarDesde('Disney / Universal','¡Hola! Me interesa un paquete a Walt Disney World o Universal Studios. Me gustaría conocer opciones de hoteles dentro del resort, entradas y la mejor época para viajar.')">
+        <div class="hero-card-icon">🏰</div>
+        <div class="hero-card-body">
+          <div class="hero-card-label">Más solicitado</div>
+          <div class="hero-card-title">Disney World & Universal Studios</div>
+          <div class="hero-card-sub">Paquetes completos con hotel, entradas y traslados</div>
+        </div>
+        <div class="hero-card-arrow">→</div>
+      </div>
+      <div class="hero-card" onclick="cotizarDesde('Crucero','¡Hola! Me interesa cotizar un crucero. Me gustaría conocer opciones de líneas navieras, itinerarios por el Caribe o el mundo, cabinas disponibles y qué incluye el paquete.')">
+        <div class="hero-card-icon">🚢</div>
+        <div class="hero-card-body">
+          <div class="hero-card-label">Experiencia única</div>
+          <div class="hero-card-title">Cruceros por el Caribe y el Mundo</div>
+          <div class="hero-card-sub">Lujo en alta mar con múltiples destinos en un solo viaje</div>
+        </div>
+        <div class="hero-card-arrow">→</div>
+      </div>
+      <div class="hero-card" onclick="cotizarDesde('Playas del Caribe','¡Hola! Me interesan paquetes a playas all-inclusive — Riviera Maya, Cancún, Punta Cana, Los Cabos u otros destinos de playa. Me gustaría conocer opciones de resorts y traslados.')">
+        <div class="hero-card-icon">🌴</div>
+        <div class="hero-card-body">
+          <div class="hero-card-label">Caribe & México</div>
+          <div class="hero-card-title">Playas all-inclusive de ensueño</div>
+          <div class="hero-card-sub">Riviera Maya, Cancún, Punta Cana, Los Cabos y más</div>
+        </div>
+        <div class="hero-card-arrow">→</div>
+      </div>
+      <div class="hero-corp-link" style="cursor:pointer;" onclick="cotizarDesde('Viaje corporativo','¡Hola! Representamos a una empresa y nos interesa conocer sus soluciones de viaje corporativo — gestión de vuelos, hoteles, traslados y facturación CFDI para nuestro equipo.')">
+        <div style="font-size:22px;">🏢</div>
+        <div>
+          <div class="hero-corp-label">¿Eres empresa?</div>
+          <div class="hero-corp-title">Soluciones de viaje corporativo con CFDI →</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="scroll-hint"><span>Descubre más</span><span class="scroll-arrow">↓</span></div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header">
+    <div class="section-eyebrow">Lo que hacemos</div>
+    <h2 class="section-title">Servicios diseñados para ti</h2>
+    <div class="gold-divider animate"></div>
+    <p class="section-sub" style="margin-top:18px">Desde parques temáticos hasta cruceros de lujo, playas paradisíacas y destinos del mundo — armamos tu viaje perfecto de principio a fin.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card" onclick="cotizarDesde('Disney / Universal','¡Hola! Me interesa un paquete a Disney World o Universal Studios. Me gustaría conocer fechas, hoteles dentro del parque, entradas y experiencias para toda la familia.')">
+      <div class="service-icon">🏰</div>
+      <div class="service-title">Disney & Universal</div>
+      <p class="service-desc">No solo te vendemos un boleto — te diseñamos la experiencia completa. Seleccionamos el hotel dentro del resort que más se ajusta a tu familia, te asesoramos en qué parques visitar cada día, cómo usar el Lightning Lane para no hacer filas y cuál es la mejor época según tu presupuesto. Tú llegas y disfrutas; nosotros ya hicimos el trabajo.</p>
+      <div class="service-tags"><span class="tag">Walt Disney World</span><span class="tag">Universal Studios</span><span class="tag">Epic Universe</span><span class="tag">Hoteles del resort</span></div>
+      <div class="service-cta">Cotizar ahora →</div>
+    </div>
+    <div class="service-card" onclick="cotizarDesde('Crucero','¡Hola! Me interesa cotizar un crucero. Me gustaría conocer opciones de líneas navieras, itinerarios disponibles, tipos de cabina y qué incluye el paquete completo.')">
+      <div class="service-icon">🚢</div>
+      <div class="service-title">Cruceros</div>
+      <p class="service-desc">Un crucero mal elegido puede ser una decepción enorme. Nosotros conocemos las diferencias entre líneas navieras, qué cabinas valen la pena, qué itinerarios tienen los mejores puertos y qué excursiones en tierra son obligadas. Te ahorramos semanas de investigación y embarcarás con todo perfectamente organizado.</p>
+      <div class="service-tags"><span class="tag">Caribe</span><span class="tag">Mediterráneo</span><span class="tag">Asia</span><span class="tag">Disney Cruise Line</span></div>
+      <div class="service-cta">Cotizar ahora →</div>
+    </div>
+    <div class="service-card" onclick="cotizarDesde('Playas del Caribe','¡Hola! Me interesan paquetes a playas — Punta Cana, Cancún, Puerto Vallarta, Los Cabos u otros destinos. Me gustaría opciones de resorts all-inclusive con traslados incluidos.')">
+      <div class="service-icon">🌴</div>
+      <div class="service-title">Playas & All-Inclusive</div>
+      <p class="service-desc">No todos los "all-inclusive" son iguales — los hay que suenan bien en papel y decepcionan en persona. Nosotros filtramos por calidad real: playas limpias, gastronomía que vale la pena y atención que corresponde al precio. Te recomendamos solo lo que realmente funciona para tu tipo de viaje y presupuesto.</p>
+      <div class="service-tags"><span class="tag">Punta Cana</span><span class="tag">Cancún</span><span class="tag">Puerto Vallarta</span><span class="tag">Los Cabos</span></div>
+      <div class="service-cta">Cotizar ahora →</div>
+    </div>
+    <div class="service-card" onclick="cotizarDesde('Otro destino','¡Hola! Me interesa armar un paquete de viaje personalizado. Tengo un destino o experiencia específica en mente y me gustaría conocer las opciones que Vialex Travel puede ofrecerme.')">
+      <div class="service-icon">🎟️</div>
+      <div class="service-title">Paquetes a la Medida</div>
+      <p class="service-desc">¿Tienes algo específico en mente — una luna de miel única, un viaje familiar sin precedentes, un destino exótico que nadie más organiza? Cuéntanos qué sueñas y construimos el itinerario exacto: vuelos, hoteles boutique o de cadena, tours privados, traslados y experiencias especiales. Tu visión, nuestra ejecución.</p>
+      <div class="service-tags"><span class="tag">100% personalizado</span><span class="tag">Vuelos + hotel</span><span class="tag">Tours privados</span><span class="tag">Luna de miel</span></div>
+      <div class="service-cta">Cotizar ahora →</div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINOS -->
+<section id="destinos">
+  <div class="section-header">
+    <div class="section-eyebrow">Destinos favoritos</div>
+    <h2 class="section-title">¿A dónde quieres ir?</h2>
+    <div class="gold-divider animate"></div>
+    <p class="section-sub" style="margin-top:18px">Haz clic en cualquier destino para iniciar tu cotización al instante.</p>
+  </div>
+  <div class="destinos-grid">
+
+    <!-- 1. Walt Disney World -->
+    <!-- IMAGEN: IMG/walt-disney-world.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Disney / Universal','¡Hola! Me interesa un paquete a Walt Disney World en Orlando. Me gustaría hoteles dentro del resort, entradas a los parques y la mejor época para viajar con mi familia.')">
+      <div class="d-img" style="background-image:url('IMG/1.Walt\ Disney\ World.jpg'); background-color:#1A1A6E;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Parque temático · Orlando, Florida</div>
+        <div class="d-name">Walt Disney World</div>
+        <div class="d-hook">"El lugar más mágico del mundo"</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Walt Disney World</div>
+          <div class="d-back-info">4 parques temáticos, 2 parques acuáticos, Disney Springs y resort con transporte incluido. Magic Kingdom, EPCOT renovado, Hollywood Studios con Galaxys Edge y Animal Kingdom. Imprescindible para familias con niños y adultos que quieren vivir la magia sin límites.</div>
+          <div class="d-tags"><span class="d-tag">Magic Kingdom</span><span class="d-tag">EPCOT</span><span class="d-tag">Hollywood Studios</span><span class="d-tag">Resort hotel</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+    <!-- 2. Universal Studios -->
+    <!-- IMAGEN: IMG/universal-studios.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Disney / Universal','¡Hola! Me interesa un paquete a Universal Studios en Orlando. Me gustaría hoteles, entradas y lo que incluye el Mundo Mágico de Harry Potter y Epic Universe 2025.')">
+      <div class="d-img" style="background-image:url('IMG/2.Universal\ Studios.jpg'); background-color:#1A0050;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Parque temático · Orlando, Florida</div>
+        <div class="d-name">Universal Studios</div>
+        <div class="d-hook">"Harry Potter, Jurassic World, Minions y adrenalina pura."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Universal Studios</div>
+          <div class="d-back-info">Epic Universe abrió con 5 mundos temáticos incluyendo el mundo de Harry Potter: Ministry of Magic, Nintendo World, Monsters y más. Ahora Universal Orlando tiene 3 parques completos que justifican perfectamente 4 a 5 días de visita.</div>
+          <div class="d-tags"><span class="d-tag">Harry Potter</span><span class="d-tag">Islands of Adventure</span><span class="d-tag">Epic Universe 2025</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+    <!-- 3. Disney Cruises -->
+    <!-- IMAGEN: IMG/disney-cruises.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Crucero','¡Hola! Me interesa un crucero de Disney Cruise Line. Me gustaría itinerarios, barcos disponibles, tipos de cabina y actividades para niños a bordo.')">
+      <div class="d-img" style="background-image:url('IMG/13.disney\ cruises.jpg'); background-color:#002080;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Crucero Familiar · Disney Cruise Line</div>
+        <div class="d-name">Disney Cruises</div>
+        <div class="d-hook">"La magia de Disney en alta mar, para todas las edades."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Disney Cruise Line</div>
+          <div class="d-back-info">Lujo de crucero de primera clase con la magia Disney: personajes en vivo, restaurantes con shows temáticos, spa para adultos, clubs para niños y adolescentes, y parada en Castaway Cay, la isla privada de Disney en Bahamas. La experiencia familiar más completa que existe.</div>
+          <div class="d-tags"><span class="d-tag">Castaway Cay</span><span class="d-tag">Personajes Disney</span><span class="d-tag">Clubs para niños</span><span class="d-tag">Shows temáticos</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+    <!-- 4. Cruceros Caribe -->
+    <!-- IMAGEN: IMG/crucero-caribe.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Crucero','¡Hola! Me interesa un crucero por el Caribe. Me gustaría conocer líneas navieras, itinerarios, tipos de cabina y puertos que se visitarían.')">
+      <div class="d-img" style="background-image:url('IMG/10.Cruceros\ Caribe.jpg'); background-color:#0A2540;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Crucero · Caribe</div>
+        <div class="d-name">Cruceros Caribe</div>
+        <div class="d-hook">"Un barco, múltiples paraísos como Cozumel, Jamaica, Bahamas y más."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Cruceros por el Caribe</div>
+          <div class="d-back-info">Visita varias islas en un solo viaje con todo incluido a bordo: comidas, entretenimiento en vivo, spa y piscinas. Itinerarios de 3 a 14 noches zarpando desde Miami, Nueva Orleans o Galveston. Perfecto para grupos, familias y primeros cruceristas.</div>
+          <div class="d-tags"><span class="d-tag">Cozumel</span><span class="d-tag">Jamaica</span><span class="d-tag">Bahamas</span><span class="d-tag">Todo incluido</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+    <!-- 5. Cruceros Mediterráneo -->
+    <!-- IMAGEN: IMG/crucero-mediterraneo.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Crucero','¡Hola! Me interesa un crucero por el Mediterráneo. Me gustaría itinerarios con Barcelona, Roma, Santorini, Dubrovnik o Mónaco.')">
+      <div class="d-img" style="background-image:url('IMG/11.crucero\ mediterraneo.jpg'); background-color:#1A3060;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Crucero · Europa</div>
+        <div class="d-name">Cruceros Mediterráneos</div>
+        <div class="d-hook">"Roma, Santorini, Dubrovnik. El arte europeo desde cubierta."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Cruceros por el Mediterráneo</div>
+          <div class="d-back-info">En 7 a 14 noches visitas Barcelona, Marsella, Roma, Nápoles, Santorini, Mykonos, Atenas, Dubrovnik y Venecia. Barcos que son hoteles flotantes de lujo con gastronomía internacional, spa y entretenimiento. La forma más elegante de conocer Europa.</div>
+          <div class="d-tags"><span class="d-tag">Santorini</span><span class="d-tag">Roma</span><span class="d-tag">Barcelona</span><span class="d-tag">Dubrovnik</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+    <!-- 6. Crucero Asia -->
+    <!-- IMAGEN: IMG/crucero-asia.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Crucero','¡Hola! Me interesa un crucero por Asia — Japón, Singapur, Vietnam, Hong Kong u otros destinos asiáticos. Me gustaría conocer itinerarios disponibles.')">
+      <div class="d-img" style="background-image:url('IMG/12.Crucero\ Asia.jpg'); background-color:#3D0000;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Crucero · Asia</div>
+        <div class="d-name">Cruceros por Asia</div>
+        <div class="d-hook">"Tokio, Singapur, Vietnam. Asia a tu ritmo, desde cubierta."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Cruceros por Asia</div>
+          <div class="d-back-info">Una de las regiones más diversas del mundo: Japón (Tokio, Osaka, Kyoto), Singapur, Vietnam (Ha Long Bay, Ho Chi Minh), Hong Kong y más, todo en un viaje. Cultura, gastronomía y paisajes radicalmente distintos cada día. Una experiencia que expande el alma.</div>
+          <div class="d-tags"><span class="d-tag">Japón</span><span class="d-tag">Singapur</span><span class="d-tag">Vietnam</span><span class="d-tag">Ha Long Bay</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+   <!-- 7. Maldivas -->
+    <!-- IMAGEN: IMG/maldivas.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Otro destino','¡Hola! Me interesa un paquete a las Maldivas. Me gustaría bungalows sobre el agua, vuelos y actividades de snorkel o buceo en arrecifes de coral.')">
+      <div class="d-img" style="background-image:url('IMG/8.Maldivas.jpg'); background-color:#003D5C;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Lujo & Naturaleza · Océano Índico</div>
+        <div class="d-name">Maldivas</div>
+        <div class="d-hook">"Un overwater bungalow. Agua transparente. El paraíso existe."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Maldivas</div>
+          <div class="d-back-info">Más de 1,000 islas de coral, bungalows sobre el agua con escalera directa al arrecife, snorkel con rayas manta y tiburones ballena, cenas románticas en la playa y atardeceres incomparables. La luna de miel o escapada de pareja que se recuerda toda la vida.</div>
+          <div class="d-tags"><span class="d-tag">Overwater bungalow</span><span class="d-tag">Tiburón ballena</span><span class="d-tag">Luna de miel</span><span class="d-tag">Arrecifes de coral</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+    <!-- 8. Phuket -->
+    <!-- IMAGEN: IMG/phuket.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Otro destino','¡Hola! Me interesa un paquete a Phuket, Tailandia. Me gustaría hoteles frente al mar, vuelos y excursiones a las islas y templos budistas de la región.')">
+      <div class="d-img" style="background-image:url('IMG/9.Phuket.jpg'); background-color:#2D0050;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Exótico & Cultural · Tailandia</div>
+        <div class="d-name">Phuket, Tailandia</div>
+        <div class="d-hook">"Asia en su versión más exótica, accesible y sorprendente."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Phuket, Tailandia</div>
+          <div class="d-back-info">Playas espectaculares como Patong y Kata, templos budistas dorados, mercados nocturnos y la Bahía de Phang Nga con islas de piedra caliza. Excursiones a las Islas Phi Phi, kayak por cuevas marinas y masajes tailandeses tradicionales. Una experiencia que expande la mente.</div>
+          <div class="d-tags"><span class="d-tag">Islas Phi Phi</span><span class="d-tag">Bahía de Phang Nga</span><span class="d-tag">Templos budistas</span><span class="d-tag">Mercados nocturnos</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+
+    <!-- 9. Italia -->
+    <!-- IMAGEN: IMG/italia.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Otro destino','¡Hola! Me interesa un paquete a Italia — Roma, Florencia y Venecia. Me gustaría hoteles, vuelos y recorridos culturales por los principales atractivos.')">
+      <div class="d-img" style="background-image:url('IMG/14\,italia.jpg'); background-color:#3D2000;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Cultural & Gastronómico · Europa</div>
+        <div class="d-name">Italia</div>
+        <div class="d-hook">"Roma, Florencia, Venecia. Arte, historia y pasta al dente."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Italia</div>
+          <div class="d-back-info">El destino cultural más rico del mundo: el Coliseo y el Vaticano en Roma, los Uffizi y el David en Florencia, los canales de Venecia y la Costa Amalfitana que quita el aliento. Sin olvidar la gastronomía: pizza napolitana, risotto, gelato y vinos de primera.</div>
+          <div class="d-tags"><span class="d-tag">Roma & Vaticano</span><span class="d-tag">Florencia</span><span class="d-tag">Venecia</span><span class="d-tag">Costa Amalfitana</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+    <!-- 10. Colombia -->
+    <!-- IMAGEN: IMG/colombia.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Otro destino','¡Hola! Me interesa un paquete a Colombia — Cartagena, Medellín o el Eje Cafetero. Me gustaría vuelos, hotel y actividades en estos destinos.')">
+      <div class="d-img" style="background-image:url('IMG/15.colombia.jpg'); background-color:#004020;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Cultural & Naturaleza · Sudamérica</div>
+        <div class="d-name">Colombia</div>
+        <div class="d-hook">"El país más diverso del mundo y el más sorprendente."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Colombia</div>
+          <div class="d-back-info">Cartagena de Indias con su ciudad amurallada colonial y el Caribe azul, Medellín la más innovadora de Latinoamérica, el Eje Cafetero con paisajes entre montañas y cafetales, y el Amazonas para los más aventureros. Buena gastronomía, gente cálida y precios accesibles.</div>
+          <div class="d-tags"><span class="d-tag">Cartagena</span><span class="d-tag">Medellín</span><span class="d-tag">Eje Cafetero</span><span class="d-tag">Caribe colombiano</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+   <!-- 11. Punta Cana -->
+    <!-- IMAGEN: IMG/punta-cana.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Playas del Caribe','¡Hola! Me interesa un paquete a Punta Cana. Busco resort all-inclusive con playa privada, vuelos y traslados incluidos.')">
+      <div class="d-img" style="background-image:url('IMG/puntacana.jpg'); background-color:#004C80;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">All-Inclusive · República Dominicana</div>
+        <div class="d-name">Punta Cana</div>
+        <div class="d-hook">"Arena blanca, agua turquesa y cocoteros de verdad."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Punta Cana</div>
+          <div class="d-back-info">Los mejores resorts all-inclusive del Caribe — Barceló, Hard Rock, Iberostar, Dreams — con playa privada, restaurantes temáticos y entretenimiento 24 h. Excursiones a Saona Island, catamarán al atardecer y deportes acuáticos. Vuelo directo desde México.</div>
+          <div class="d-tags"><span class="d-tag">All-inclusive</span><span class="d-tag">Isla Saona</span><span class="d-tag">Playa privada</span><span class="d-tag">Catamarán</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+   
+
+    <!-- 12. Los Cabos -->
+    <!-- IMAGEN: IMG/los-cabos.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Descubre México','¡Hola! Me interesa un paquete a Los Cabos. Me gustaría hotel de lujo, vuelos y actividades como avistamiento de ballenas, surf o recorridos al Arco de Cabo San Lucas.')">
+      <div class="d-img" style="background-image:url('IMG/6.los\ cabos.jpg'); background-color:#7A4A00;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Lujo & Aventura · Baja California Sur</div>
+        <div class="d-name">Los Cabos</div>
+        <div class="d-hook">"Donde el desierto se funde con el mar en el fin del mundo."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Los Cabos</div>
+          <div class="d-back-info">El Arco de Cabo San Lucas es una de las postales más icónicas de México. Resorts de lujo de talla mundial, golf frente al mar, pesca deportiva de marlín, surf en Zippers y avistamiento de ballenas grises. San José del Cabo tiene arte, gastronomía gourmet y mercados orgánicos.</div>
+          <div class="d-tags"><span class="d-tag">El Arco</span><span class="d-tag">Resorts de lujo</span><span class="d-tag">Pesca deportiva</span><span class="d-tag">Surf</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+
+    <!-- 13. Riviera Maya & Xcaret -->
+    <!-- IMAGEN: IMG/riviera-maya.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Descubre México','¡Hola! Me interesa un paquete a la Riviera Maya con Xcaret. Me gustaría entradas al parque, hotel y traslados desde el aeropuerto de Cancún.')">
+      <div class="d-img" style="background-image:url('IMG/3.Riviera\ Maya\ &\ Xcaret.jpg'); background-color:#00594A;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Naturaleza & Cultura · Quintana Roo, México</div>
+        <div class="d-name">Riviera Maya & Xcaret</div>
+        <div class="d-hook">"El Caribe mexicano en su versión más auténtica."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Riviera Maya & Xcaret</div>
+          <div class="d-back-info">Xcaret combina naturaleza, cultura maya y entretenimiento: ríos subterráneos, arrecifes de coral, ceremonias prehispánicas y el espectáculo México Espectacular. Fuera del parque: cenotes cristalinos, Tulum, Cobá y playas de arena blanca sin fin.</div>
+          <div class="d-tags"><span class="d-tag">Xcaret</span><span class="d-tag">Cenotes</span><span class="d-tag">Tulum</span><span class="d-tag">Mar turquesa</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+    <!-- 14. Cancún -->
+    <!-- IMAGEN: IMG/cancun.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Playas del Caribe','¡Hola! Me interesa un paquete a Cancún. Me gustaría hotel en la zona hotelera, vuelos y opciones de actividades acuáticas o excursiones a los alrededores.')">
+      <div class="d-img" style="background-image:url('IMG/4.Cancún.jpg'); background-color:#004B8D;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Playa & Diversión · Quintana Roo, México</div>
+        <div class="d-name">Cancún</div>
+        <div class="d-hook">"El destino de playa más visitado de México"</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Cancún</div>
+          <div class="d-back-info">14 km de playa con el agua más turquesa que imaginas. Resorts all-inclusive de primer nivel, vida nocturna vibrante, snorkel en arrecifes de coral y excursiones a Isla Mujeres, Chichen Itzá o Xel-Há. Perfecto para familias, grupos de amigos o escapadas románticas.</div>
+          <div class="d-tags"><span class="d-tag">All-inclusive</span><span class="d-tag">Isla Mujeres</span><span class="d-tag">Chichen Itzá</span><span class="d-tag">Snorkel</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+    <!-- 15. Puerto Vallarta -->
+    <!-- IMAGEN: IMG/puerto-vallarta.jpg -->
+    <div class="d-card" onclick="cotizarDesde('Descubre México','¡Hola! Me interesa un paquete a Puerto Vallarta. Me gustaría hotel frente al mar, vuelos y opciones como avistamiento de ballenas o tours por la bahía.')">
+      <div class="d-img" style="background-image:url(IMG/puerto-vallarta.jpg); background-color:#4A0030;"></div>
+      <div class="d-gradient"></div>
+      <div class="d-front">
+        <div class="d-type">Playa & Cultura · Jalisco, México</div>
+        <div class="d-name">Puerto Vallarta</div>
+        <div class="d-hook">"Donde el Pacífico se viste de colonial y se convierte en paraíso."</div>
+      </div>
+      <div class="d-back">
+        <div>
+          <div class="d-back-title">Puerto Vallarta</div>
+          <div class="d-back-info">La Bahía de Banderas: aguas cálidas perfectas para bucear, snorkel y avistar ballenas jorobadas (nov–mar). El Malecón, el barrio Romántico y los mercados artesanales hacen de PV un destino con alma. Ideal para quienes buscan playa + cultura en un solo lugar.</div>
+          <div class="d-tags"><span class="d-tag">Ballenas jorobadas</span><span class="d-tag">El Malecón</span><span class="d-tag">Buceo</span><span class="d-tag">Bahía de Banderas</span></div>
+        </div>
+        <div class="d-cta">Quiero cotizar este viaje →</div>
+      </div>
+    </div>
+
+
+
+
+  
+  
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 56px;">
+    <div class="section-eyebrow">Así trabajamos</div>
+    <h2 class="section-title">Tu viaje en 4 pasos simples</h2>
+    <div class="gold-divider animate" style="margin:14px auto 0;"></div>
+  </div>
+  <div class="proceso-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-title">Nos contactas</div><div class="step-text">Por WhatsApp, email o el formulario. Cuéntanos tu sueño de viaje, fechas y presupuesto.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-title">Diseñamos tu plan</div><div class="step-text">Te enviamos una cotización detallada y personalizada en menos de 24 horas.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-title">Confirmas y reservamos</div><div class="step-text">Apruebas el plan, realizas el depósito de confirmación y comenzamos las reservaciones.</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-title">Viajas sin estrés</div><div class="step-text">Recibes todos los documentos y estamos contigo durante todo el viaje ante cualquier situación.</div></div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-header">
+    <div class="section-eyebrow">Hablemos</div>
+    <h2 class="section-title">¿Listo para tu próximo viaje?</h2>
+    <div class="gold-divider animate"></div>
+    <p class="section-sub" style="margin-top:18px">Cotización gratis y sin compromiso. Escríbenos ahora y empezamos a planear juntos.</p>
+  </div>
+  <div class="contacto-layout">
+    <div class="contacto-cards">
+      <a href="https://wa.me/525567609961" target="_blank" rel="noopener" class="contacto-card">
+        <div class="contacto-card-icon">💬</div>
+        <div><div class="contacto-card-label">WhatsApp</div><div class="contacto-card-value">55 6760 9961</div></div>
+      </a>
+      <a href="mailto:contacto.vialex@gmail.com" target="_blank" rel="noopener" class="contacto-card">
+        <div class="contacto-card-icon">📧</div>
+        <div><div class="contacto-card-label">Email</div><div class="contacto-card-value">contacto.vialex@gmail.com</div></div>
+      </a>
+      <div class="contacto-card" style="cursor:default;">
+        <div class="contacto-card-icon">📍</div>
+        <div><div class="contacto-card-label">Cobertura</div><div class="contacto-card-value">México · Atendemos todo el país</div></div>
+      </div>
+      <div class="contacto-card" style="cursor:default;">
+        <div class="contacto-card-icon">🕐</div>
+        <div><div class="contacto-card-label">Horario de atención</div><div class="contacto-card-value">Lun–Sáb · 9:00 a 19:00 hrs</div></div>
+      </div>
+    </div>
+
+    <div class="contacto-form-area">
+      <h3>Cotiza tu viaje gratis</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" id="f-nombre" placeholder="Tu nombre" oninput="document.getElementById('nombre-error').style.display='none'" />
+          <div id="nombre-error" class="field-error">Escribe al menos 3 caracteres.</div>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp / Teléfono</label>
+          <input type="tel" id="f-tel" placeholder="+52 xxx xxx xxxx" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="f-email" placeholder="tucorreo@ejemplo.com" oninput="document.getElementById('email-error').style.display='none'" />
+        <div id="email-error" class="field-error">Ingresa un correo electrónico válido.</div>
+      </div>
+      <div class="form-group">
+        <label>Tipo de viaje</label>
+        <select id="f-tipo">
+          <option value="">Selecciona una opción</option>
+          <option>Disney / Universal</option>
+          <option>Crucero</option>
+          <option>Playas del Caribe</option>
+          <option>Descubre México</option>
+          <option>Viaje corporativo</option>
+          <option>Otro destino</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha aproximada de viaje</label>
+          <input type="date" id="f-fecha" oninput="document.getElementById('fecha-error').style.display='none'" style="color-scheme:dark;" />
+          <div id="fecha-error" class="field-error">Selecciona una fecha válida para continuar.</div>
+        </div>
+        <div class="form-group">
+          <label>Número de viajeros</label>
+          <input type="number" id="f-viajeros" placeholder="ej. 4" min="1" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Cuéntanos tu sueño de viaje</label>
+        <textarea id="f-mensaje" placeholder="Destino, actividades, presupuesto aproximado, necesidades especiales..."></textarea>
+      </div>
+      <button class="form-submit" onclick="enviarWhatsApp()">Enviar cotización →</button>
+      <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:12px;text-align:center;">Al enviar, serás redirigido a WhatsApp con tu solicitud lista.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span style="font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:700;">Vialex <span style="color:var(--gold-light)">Travel</span></span>
+      <p>Agencia de viajes registrada en México. Hacemos realidad los viajes que sueñas — Disney, cruceros, playas y destinos del mundo.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <a href="#servicios">Disney & Universal</a>
+      <a href="#servicios">Cruceros</a>
+      <a href="#servicios">Playas & All-Inclusive</a>
+      <a href="#servicios">Descubre México</a>
+      <a href="corporativo.html" target="_blank">Viajes Corporativos</a>
+    </div>
+    <div class="footer-col">
+      <h4>Destinos top</h4>
+      <a href="#destinos">Walt Disney World</a>
+      <a href="#destinos">Cancún & Riviera Maya</a>
+      <a href="#destinos">Punta Cana</a>
+      <a href="#destinos">Maldivas</a>
+      <a href="#destinos">Cruceros Mediterráneo</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <a href="https://wa.me/525567609961" target="_blank">WhatsApp: 55 6760 9961</a>
+      <a href="mailto:contacto.vialex@gmail.com" target="_blank">contacto.vialex@gmail.com</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="corporativo.html" target="_blank">Soy empresa →</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Vialex Travel. Todos los derechos reservados.</p>
+    <div class="footer-legal">
+      <a href="#">Aviso de privacidad</a>
+      <a href="#">Términos y condiciones</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',function(){ document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40); });
+
+function cotizarDesde(tipo, msg) {
+  var sel = document.getElementById('f-tipo');
+  for(var i=0;i<sel.options.length;i++){ if(sel.options[i].text===tipo){sel.selectedIndex=i;break;} }
+  document.getElementById('f-mensaje').value = msg;
+  document.getElementById('contacto').scrollIntoView({behavior:'smooth'});
+  setTimeout(function(){ document.getElementById('f-nombre').focus(); }, 700);
+}
+
+function validarEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+function enviarWhatsApp(){
+  var nombre = document.getElementById('f-nombre').value.trim();
+  var email  = document.getElementById('f-email').value.trim();
+  var fecha  = document.getElementById('f-fecha').value;
+  var hayError = false;
+
+  document.getElementById('nombre-error').style.display='none';
+  document.getElementById('email-error').style.display='none';
+  document.getElementById('fecha-error').style.display='none';
+
+  if(nombre.length < 3){
+    document.getElementById('nombre-error').style.display='block';
+    document.getElementById('f-nombre').focus();
+    hayError = true;
+  }
+  if(email && !validarEmail(email)){
+    document.getElementById('email-error').style.display='block';
+    if(!hayError) document.getElementById('f-email').focus();
+    hayError = true;
+  }
+  if(!fecha){
+    document.getElementById('fecha-error').style.display='block';
+    if(!hayError) document.getElementById('f-fecha').focus();
+    hayError = true;
+  }
+  if(hayError) return;
+
+  var tel      = document.getElementById('f-tel').value||'No indicado';
+  var tipo     = document.getElementById('f-tipo').value||'No indicado';
+  var viajeros = document.getElementById('f-viajeros').value||'No indicado';
+  var mensaje  = document.getElementById('f-mensaje').value||'Sin mensaje';
+  var p=fecha.split('-'); var fechaFmt=p[2]+'/'+p[1]+'/'+p[0];
+
+  var texto='\u00A1Hola! Me interesa cotizar un viaje con Vialex Travel.\n\n'
+    +'\uD83D\uDC64 *Nombre:* '+nombre+'\n'
+    +'\uD83D\uDCF1 *Tel\u00E9fono:* '+tel+'\n'
+    +'\uD83D\uDCE7 *Correo:* '+(email||'No indicado')+'\n'
+    +'\u2708\uFE0F *Tipo de viaje:* '+tipo+'\n'
+    +'\uD83D\uDCC5 *Fecha:* '+fechaFmt+'\n'
+    +'\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67 *Viajeros:* '+viajeros+'\n'
+    +'\uD83D\uDCAC *Detalles:* '+mensaje;
+  window.open('https://wa.me/525567609961?text='+encodeURIComponent(texto),'_blank');
+}
+</script>
+</body>
+</html>
